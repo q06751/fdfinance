@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #f4f6f8;
+  --color-surface: #ffffff;
+  --color-surface-2: #f0f3f6;
+  --color-fg: #0f172a;
+  --color-muted: #64748b;
+  --color-primary: #0d9488;
+  --color-primary-fg: #ffffff;
+  --color-primary-soft: #ccfbf1;
+  --color-accent: #0f766e;
+  --color-border: #e2e8f0;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fee2e2;
+  --color-warning: #d97706;
+  --color-warning-soft: #fef3c7;
+  --color-success: #059669;
+  --color-success-soft: #d1fae5;
+  --color-info: #2563eb;
+  --color-info-soft: #dbeafe;
+  --color-sidebar: #0b1f1c;
+  --color-sidebar-fg: #e7eeec;
+  --color-sidebar-muted: #8aa39c;
+  --color-sidebar-hover: #14332e;
+  --color-sidebar-active: #0f766e;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --font-sans: var(--font-dm-sans), "Noto Sans SC", system-ui, sans-serif;
+  --font-display: var(--font-instrument), var(--font-dm-sans), "Noto Sans SC", system-ui, sans-serif;
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px rgb(15 23 42 / 0.04);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html,
+  body {
+    min-height: 100%;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: var(--color-primary-soft);
+    color: var(--color-accent);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .card-surface {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+  }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
