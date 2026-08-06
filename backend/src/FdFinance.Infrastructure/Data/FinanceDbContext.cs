@@ -39,7 +39,6 @@ public class FinanceDbContext : DbContext, IFinanceDbContext
             e.Property(x => x.F_Producer).HasMaxLength(128);
             e.Property(x => x.F_ClassTypt).HasMaxLength(16);
             e.Property(x => x.F_MergeId).HasMaxLength(512);
-            // 附加可空列 — 旧程序可不写
             e.Property(x => x.ExtensionJson).IsRequired(false);
             e.HasIndex(x => x.F_Code);
             e.HasIndex(x => x.F_Depid);
@@ -53,7 +52,6 @@ public class FinanceDbContext : DbContext, IFinanceDbContext
             e.Property(x => x.F_Abstract).HasMaxLength(512);
             e.Property(x => x.F_Money).HasPrecision(18, 2);
             e.Property(x => x.ExtensionJson).IsRequired(false);
-            // 导航关系仅应用层使用；不强制库内 FK，避免改动老库约束
             e.HasOne(x => x.Reimbursement)
                 .WithMany(r => r.Abstracts)
                 .HasForeignKey(x => x.F_ReimbursementId)
@@ -69,7 +67,6 @@ public class FinanceDbContext : DbContext, IFinanceDbContext
             e.Property(x => x.F_Position).HasMaxLength(64);
             e.Property(x => x.F_ImageUrl).HasMaxLength(512);
             e.Property(x => x.F_Status).HasMaxLength(32);
-            // TodoId 为老模型已有字段（钉钉待办），保持
             e.Property(x => x.TodoId).HasMaxLength(128);
             e.Property(x => x.ExtensionJson).IsRequired(false);
             e.HasOne(x => x.Reimbursement)
@@ -121,7 +118,6 @@ public class FinanceDbContext : DbContext, IFinanceDbContext
         {
             e.ToTable("T_Apply");
             e.HasKey(x => x.F_ApplyId);
-            e.Property(x => x.F_Id).ValueGeneratedOnAdd();
             e.Property(x => x.F_Name).HasMaxLength(128);
             e.Property(x => x.F_Department).HasMaxLength(256);
             e.Property(x => x.F_Money).HasMaxLength(64);
@@ -144,7 +140,6 @@ public class FinanceDbContext : DbContext, IFinanceDbContext
             e.Property(x => x.ExtensionJson).IsRequired(false);
         });
 
-        // 原表：打印次数，新老共用
         modelBuilder.Entity<T_Report>(e =>
         {
             e.ToTable("T_Report");
@@ -154,7 +149,6 @@ public class FinanceDbContext : DbContext, IFinanceDbContext
             e.HasIndex(x => x.F_ReimbursementId);
         });
 
-        // 辅助：组织（演示/自建库）；对接老环境可指向钉钉部门表或仅用代码映射
         modelBuilder.Entity<Department>(e =>
         {
             e.ToTable("Department");
@@ -165,7 +159,6 @@ public class FinanceDbContext : DbContext, IFinanceDbContext
             e.Property(x => x.ExtensionJson).IsRequired(false);
         });
 
-        // 新辅助表：流水号（老库可用存储过程 GetSerialNo，此表仅新系统兜底）
         modelBuilder.Entity<SerialCounter>(e =>
         {
             e.ToTable("SerialCounter");
