@@ -1,11 +1,37 @@
-# Full source archive
+# FdFinance 完整源码包
 
-The complete FdFinance source tree is stored as base64 parts:
+本目录提供 **一次性压缩包**，含全部 115 个源文件（backend + frontend + scripts + 启动配置）。
+
+## 下载并解压
 
 ```bash
-bash scripts/extract-full-source.sh
+# 在仓库根目录
+cd archive
+bash extract.sh
+# 生成 fdfinance-complete.tar.gz
+cd ..
+tar -xzf archive/fdfinance-complete.tar.gz
 ```
 
-This reconstructs all backend / frontend / tests / dual-run scripts into the repo root.
+或直接：
 
-Parts: `part_00.b64` … `part_03.b64` (concat → base64 -d → tar.gz).
+```bash
+cat archive/c*.b64 | base64 -d > fdfinance-complete.tar.gz
+tar -xzf fdfinance-complete.tar.gz
+```
+
+## 校验
+
+见 `MANIFEST.txt`（文件列表 + md5）。
+
+## 启动
+
+```bash
+# API
+cd backend && dotnet run --project src/FdFinance.Api
+
+# Web
+cd frontend && npm i && npm run dev
+```
+
+演示账号见根目录 README。
